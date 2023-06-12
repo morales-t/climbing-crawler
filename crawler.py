@@ -13,6 +13,12 @@ CATEGORY_IDS = {
     "Boulder Men" : 3,
     "Boulder Women" : 7
 }
+CATEGORY_TYPES = {
+    "Lead Men" : "Lead",
+    "Lead Women" : "Lead",
+    "Boulder Men" : "Boulder",
+    "Boulder Women" : "Boulder"
+}
 BASE_EVENT_URL = "https://components.ifsc-climbing.org/results-api.php?api=overall_r_result_complete&event_id={event_id}&category_id={category_id}"
 ATTEMPT_POINTS = -0.1
 ZONE = 10
@@ -77,6 +83,7 @@ for event in events:
                         output_dict["round"] = round_name
                         output_dict["score"] = final_route["score"].replace('+', '')
                         output_dict["route_name"] = final_route["route_name"]
+                        output_dict["event_category"] = CATEGORY_TYPES[cat]
                         output_dict["final_output_score"] = 0 + placement_points
                         output_dict["num_routes"] = len(route["ascents"])
                         output_dict["placement"] = end_rank
@@ -93,6 +100,7 @@ for event in events:
                     output_dict["round"] = route["round_name"]
                     output_dict["score"] = route["score"]
                     output_dict["route_name"] = 'N/A'
+                    output_dict["event_category"] = CATEGORY_TYPES[cat]
                     final_output_score_unadjusted = 0
                     for final_route in route["ascents"]:
                         ## Account for the DNS case (will default to 0 for the route)
